@@ -1,19 +1,35 @@
-function encrypt(text, num) {
-  const alphabet = "abcdefghijklmnopqrstuvwxyz";
-  let encryptedstr = "";
+function caesarCipher(text, number) {
+  let alphabets = "abcdefghijklmnopqrstuvwxyz";
+
+  let encryptedString = "";
+
   for (let char of text) {
-    if (!alphabet.includes(char)) {
-      encryptedstr += char;
+    if (!alphabets.includes(char) && !alphabets.toUpperCase().includes(char)) {
+      encryptedString += char;
       continue;
     }
-    const index = alphabet.indexOf(char);
-    let newIndex = index + num;
+
+    if (alphabets.toUpperCase().includes(char)) {
+      alphabets = alphabets.toUpperCase();
+    }
+
+    const index = alphabets.indexOf(char);
+    let newIndex = index + number;
+
     if (newIndex > 25) {
       newIndex %= 26;
     }
-    const alpha = alphabet[newIndex];
-    encryptedstr += alpha;
+    const newChar = alphabets.charAt(newIndex);
+    encryptedString += newChar;
+
+    alphabets = alphabets.toLowerCase();
   }
-  console.log(encryptedstr);
+
+  console.log(encryptedString);
+
+  return encryptedString;
 }
-encrypt("abhishek", 26);
+
+const x = caesarCipher("HELLO hello", 26);
+
+console.log(x);
